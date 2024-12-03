@@ -1,0 +1,8 @@
+scalar DateTime
+    @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+#import customer.graphql
+#import price.graphql
+#import product.graphql
+#import transaction.graphql
+#import stock_transaction.graphql

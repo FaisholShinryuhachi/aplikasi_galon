@@ -1,0 +1,48 @@
+# services:
+#   laravel:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     container_name: aplikasi_galon
+#     ports:
+#       - "8080:80" # Laravel accessible at http://localhost:8080
+#     environment:
+#       - APP_ENV=local
+#       - APP_DEBUG=true
+#       - DB_CONNECTION=mysql
+#       - DB_HOST=mysql
+#       - DB_PORT=3306
+#       - DB_DATABASE=aplikasi_galon
+#       - DB_USERNAME=root
+#       - DB_PASSWORD=''
+#     volumes:
+#       - .:/var/www/html
+#     depends_on:
+#       - mysql
+#     command: >
+#       sh -c "
+#         until nc -z mysql 3306; do
+#           echo 'Waiting for MySQL...';
+#           sleep 1;
+#         done;
+#         if [ ! -f .env ]; then
+#           cp .env.example .env && php artisan key:generate && php artisan config:clear && php artisan config:cache;
+#         fi;
+#         php artisan migrate --force --seed && apache2-foreground
+#       "
+
+#   mysql:
+#     image: mysql:8.0
+#     container_name: aplikasi_galon_db
+#     restart: unless-stopped
+#     environment:
+#       MYSQL_DATABASE: aplikasi_galon
+#       MYSQL_ROOT_PASSWORD: 'Rahasia1234'
+#       MYSQL_ROOT_HOST: '%'
+#     ports:
+#       - "3306:3306"
+#     volumes:
+#       - mysql_data:/var/lib/mysql
+
+# volumes:
+#   mysql_data:

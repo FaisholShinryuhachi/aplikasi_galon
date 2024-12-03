@@ -1,0 +1,57 @@
+# extend type Query {
+#     customers(orderBy: [OrderByClause!], first: Int, page: Int): [Customer!]!
+#         @field(resolver: "App\\GraphQL\\Queries\\CustomerResolver@resolve")
+#     customer(id: ID @eq): Customer @find
+# }
+
+# extend type Mutation {
+#     createCustomer(name: String!, phone: String!): Customer! @create
+# }
+
+# type Customer {
+#     id: ID
+#     name: String
+#     phone: String
+#     created_at: DateTime
+# }
+
+# input OrderByClause {
+#     column: String!
+#     order: SortOrder!
+# }
+
+# enum SortOrder {
+#     ASC
+#     DESC
+# }
+
+type Query {
+    customers(
+        orderBy: [OrderByClause!]
+        first: Int
+        page: Int
+        search: String
+    ): CustomerConnection!
+        @field(resolver: "App\\GraphQL\\Queries\\CustomerResolver@resolve")
+}
+
+type CustomerConnection {
+    data: [Customer!]!
+    paginatorInfo: PaginatorInfo!
+}
+
+type Customer {
+    id: ID!
+    name: String!
+    phone: String!
+    created_at: DateTime!
+}
+
+type PaginatorInfo {
+    total: Int!
+    currentPage: Int!
+    lastPage: Int!
+    perPage: Int!
+    count: Int!
+    hasMorePages: Boolean!
+}

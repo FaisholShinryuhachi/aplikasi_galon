@@ -1,0 +1,12 @@
+extend type Query {
+    prices: [Price!]! @all
+}
+
+extend type Mutation {
+    createPrice(price: Int!): Price! @create
+}
+
+type Price {
+    id: ID
+    price: Int
+}

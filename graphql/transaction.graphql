@@ -1,0 +1,27 @@
+scalar DateTime
+    @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+extend type Query {
+    transactions: [Transaction!]! @paginate
+    # customer(id: ID @eq): Customer @find
+}
+
+extend type Mutation {
+    createTransaction(
+        customer_id: Int!
+        product_id: Int!
+        amount: Int!
+        price: Int!
+    ): Transaction! @create
+}
+
+type Transaction {
+    id: ID
+    customer: Customer @belongsTo
+    product: Product @belongsTo
+    amount: Int
+    price: Int
+    # type: TransactionType
+    created_at: DateTime
+    updated_at: DateTime
+}

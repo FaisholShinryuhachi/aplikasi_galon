@@ -1,0 +1,19 @@
+scalar DateTime
+    @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+extend type Query {
+    product: Product! @first
+}
+
+# type Mutation {
+#     createPrice(price: Int!): Price! @create
+# }
+
+type Product {
+    id: ID
+    name: String
+    desc: String
+    stock: Int
+    created_at: DateTime
+    updated_at: DateTime
+}
