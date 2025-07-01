@@ -2,11 +2,11 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "clean": "rm -rf public/build",
         "build": "vite build",
         "dev": "vite"
     },
     "devDependencies": {
+        "@types/node": "^22.10.1",
         "@types/react": "^18.3.12",
         "@vitejs/plugin-react": "^4.3.3",
         "autoprefixer": "^10.4.20",
@@ -39,6 +39,7 @@
         "classnames": "^2.5.1",
         "core-js": "^3.39.0",
         "date-fns": "^4.1.0",
+        "dotenv": "^16.4.7",
         "graphql": "^16.9.0",
         "prop-types": "^15.8.1",
         "react": "^18.3.1",

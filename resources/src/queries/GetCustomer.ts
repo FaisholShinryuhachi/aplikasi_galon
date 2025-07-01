@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 
 // Tipe untuk customer
 export interface Customer {
+    id: number;
     name: string;
     phone: string;
     created_at: string;
@@ -41,6 +42,7 @@ export const GET_CUSTOMERS = gql`
             search: $search
         ) {
             data {
+                id
                 name
                 phone
                 created_at

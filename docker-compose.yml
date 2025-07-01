@@ -1,63 +1,44 @@
-# services:
-#   mysql:
-#     image: mysql:8.0
-#     container_name: aplikasi_galon_db
-#     restart: always
-#     environment:
-#       MYSQL_DATABASE: galonku # Nama database
-#       MYSQL_ROOT_PASSWORD: 'ewek'
-#       MYSQL_USER: admin # User database
-#       MYSQL_PASSWORD: admin # Password user database
-#     ports:
-#       - "3306:3306" # Mengekspos MySQL pada port 3306
-#     volumes:
-#       - type: tmpfs
-#         target: /var/lib/mysql
-
-# volumes:
-#   mysql_data:
-
 networks:
   laravel_network:
     driver: bridge
 
 services:
-  laravel:
-    networks:
-      - laravel_network
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: aplikasi_galon
-    ports:
-      - "6969:80" # Laravel accessible at http://localhost:6969
-    # environment:
-    #   - APP_ENV=production
-    #   - APP_DEBUG=true
-    #   - DB_CONNECTION=mysql
-    #   - DB_HOST=host.docker.internal
-    #   - DB_PORT=3306
-    #   - DB_DATABASE=aplikasi_galon_db
-    #   - DB_USERNAME=root
-    #   - DB_PASSWORD='Rahasia1234'
-    volumes:
-      - .:/var/www/html
-    depends_on:
-      - mysql
-    command: >
-      sh -c "
-        until nc -z mysql 3306; do
-          echo 'Waiting for MySQL...';
-          sleep 1;
-        done;
-        if [ ! -f .env ]; then
-          cp .env.example .env && php artisan key:generate;
-        fi;
-        php artisan migrate:refresh --force --seed && 
-        php artisan optimize:clear &&
-        php artisan optimize &&
-        apache2-foreground
-      "
+  # laravel:
+  #   networks:
+  #     - laravel_network
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: aplikasi_galon
+  #   ports:
+  #     - "6969:80" # Laravel accessible at http://localhost:6969
+  #   # environment:
+  #   #   - APP_ENV=production
+  #   #   - APP_DEBUG=true
+  #   #   - DB_CONNECTION=mysql
+  #   #   - DB_HOST=host.docker.internal
+  #   #   - DB_PORT=3306
+  #   #   - DB_DATABASE=aplikasi_galon_db
+  #   #   - DB_USERNAME=root
+  #   #   - DB_PASSWORD='Rahasia1234'
+  #   volumes:
+  #     - .:/var/www/html
+  #   depends_on:
+  #     - mysql
+  #   command: >
+  #     sh -c "
+  #       until nc -z mysql 3306; do
+  #         echo 'Waiting for MySQL...';
+  #         sleep 1;
+  #       done;
+  #       if [ ! -f .env ]; then
+  #         cp .env.example .env && php artisan key:generate;
+  #       fi;
+  #       php artisan migrate:refresh --force --seed && 
+  #       php artisan optimize:clear &&
+  #       php artisan optimize &&
+  #       apache2-foreground
+  #     "
   mysql:
     networks:
       - laravel_network
